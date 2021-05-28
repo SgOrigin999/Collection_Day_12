@@ -1,5 +1,7 @@
 package com.bridgelab.collection;
 
+import java.util.ArrayList;
+
 class AddressBookData{
 	String firstName;
 	String lastName;
@@ -74,14 +76,22 @@ class AddressBookData{
 		return "AddressBookData [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city="
 				+ city + ", state=" + state + ", zipCode=" + zipCode + ", phoneNumber=" + phoneNumber + ", email="
 				+ email + "]";
-	}
-		
+	}	
 }
-
 
 public class AddressBook {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program Using Collection::");
+		AddressBookData data = new AddressBookData("Amit","yadav","Chembur","Mumbai","Maharashtra","400074","86555580069","amit@gmail.com");
+		AddressBookData data1 = new AddressBookData("vijay","sing","kurla","Mumbai","Maharashtra","400024","86555580089","vijay@gmail.com");
+		
+		ArrayList<AddressBookData>  addressList=new ArrayList<>();
+		addressList.add(data);
+		addressList.add(data1);
+		for (AddressBookData   value: addressList) {
+            System.out.println("Result::"+value);
+        }
+		
 	}
 }
