@@ -1,6 +1,7 @@
 package com.bridgelab.collection;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 class AddressBookData {
@@ -100,6 +101,9 @@ class AddressBookData {
 
 class AdressBookTest {
 	ArrayList<AddressBookData> addressDataTest = new ArrayList<>();
+	String str;
+	Scanner sc = new Scanner(System.in);
+	ArrayList<AddressBookData> changeValue = new ArrayList<>();
 
 	public AdressBookTest(ArrayList<AddressBookData> addressDataTest) {
 		super();
@@ -107,38 +111,50 @@ class AdressBookTest {
 	}
 
 	public ArrayList<AddressBookData> chngeByName(ArrayList<AddressBookData> addressList) {
-		String str;
-		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter Name to Match from adress book and Change::");
 		str = sc.next();
-		ArrayList<AddressBookData> changeValue = new ArrayList<>();
 		for (AddressBookData value : addressList) {
 			String listName = value.getFirstName();
 			if (str.equalsIgnoreCase(listName)) {
 				System.out.println("Data Found See list and change Value in list::" + value);
-				String fname,lname,address,city,state,pin,mobileNo,mailId;
+				String fname, lname, address, city, state, pin, mobileNo, mailId;
 				System.out.println("Enter First Name");
-				fname=sc.next();
+				fname = sc.next();
 				System.out.println("Enter Last Name");
-				lname=sc.next();
+				lname = sc.next();
 				System.out.println("Enter Address Name");
-				address=sc.next();
+				address = sc.next();
 				System.out.println("Enter City Name");
-				city=sc.next();
+				city = sc.next();
 				System.out.println("Enter State Name");
-				state=sc.next();
+				state = sc.next();
 				System.out.println("Enter Pin Name");
-				pin=sc.next();
+				pin = sc.next();
 				System.out.println("Enter MobileNo Name");
-				mobileNo=sc.next();
+				mobileNo = sc.next();
 				System.out.println("Enter MailId Name");
-				mailId=sc.next();
-				AddressBookData data = new AddressBookData(fname,lname,address,city,state,pin,mobileNo,mailId);
+				mailId = sc.next();
+				AddressBookData data = new AddressBookData(fname, lname, address, city, state, pin, mobileNo, mailId);
 				changeValue.add(data);
 			} else {
 				changeValue.add(value);
 			}
-		}		
+		}
+		return changeValue;
+	}
+
+	public ArrayList<AddressBookData> deleteByName(ArrayList<AddressBookData> addressList) {
+		System.out.println("Enter a Name of Person to delete a Data");
+		str = sc.next();
+		for (AddressBookData value : addressList) {
+			String listName = value.getFirstName();
+			if (str.equalsIgnoreCase(listName)) {
+				changeValue.add(value);
+			}
+		}
+		addressList.removeAll(changeValue);
+		changeValue.clear();
+		changeValue.addAll(addressList);
 		return changeValue;
 	}
 }
@@ -154,16 +170,23 @@ public class AddressBook {
 		AddressBookData data2 = new AddressBookData("Naresh", "gupta", "Thane", "Mumbai", "Maharashtra", "400004",
 				"86557880089", "naresh@gmail.com");
 
-		ArrayList<AddressBookData> changeList = new ArrayList<>();
 		ArrayList<AddressBookData> addressList = new ArrayList<>();
+		AdressBookTest addTest = new AdressBookTest(addressList);
+		ArrayList<AddressBookData> deleteList = new ArrayList<>();
+		ArrayList<AddressBookData> changeList = new ArrayList<>();
+
 		addressList.add(data);
 		addressList.add(data1);
 		addressList.add(data2);
 		for (AddressBookData value : addressList) {
 			System.out.println("Data Store In AddressBok::" + value);
 		}
+		deleteList = addTest.deleteByName(addressList);
+		System.out.println("deleteList::"+deleteList);
+		for (AddressBookData value : deleteList) {
+			System.out.println("After Delete Data By Name In AddressBok::" + value);
+		}
 
-		AdressBookTest addTest = new AdressBookTest(addressList);
 		changeList = addTest.chngeByName(addressList);
 		for (AddressBookData value : changeList) {
 			System.out.println("After Change By Name In AddressBok::" + value);
