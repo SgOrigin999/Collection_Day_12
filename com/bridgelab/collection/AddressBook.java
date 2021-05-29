@@ -205,10 +205,10 @@ class AdressBookTest {
 		String cityNam = sc.next();
 		System.out.println("Enter State Name::");
 		String stateNam = sc.next();
-		
+
 		for (AddressBookData value : addressList) {
-			String city= value.getCity();
-			String state=value.getState();
+			String city = value.getCity();
+			String state = value.getState();
 			if (city.equalsIgnoreCase(cityNam) && state.equalsIgnoreCase(stateNam)) {
 				changeValue.add(value);
 			}
@@ -221,18 +221,39 @@ class AdressBookTest {
 		String cityNam = sc.next();
 		System.out.println("Enter State Name::");
 		String stateNam = sc.next();
-		
+
 		for (AddressBookData value : addressList) {
-			String city= value.getCity();
-			String state=value.getState();
+			String city = value.getCity();
+			String state = value.getState();
 			if (city.equalsIgnoreCase(cityNam) || state.equalsIgnoreCase(stateNam)) {
 				changeValue.add(value);
 			}
 		}
 		return changeValue;
 	}
-}
 
+	public int getNumberOfPersonByCityOrName(ArrayList<AddressBookData> addressList) {
+		System.out.println("Enter City Name::");
+		String cityNam = sc.next();
+		System.out.println("Enter State Name::");
+		String stateNam = sc.next();
+		int countCity = 0;
+		int countState = 0;
+		for (AddressBookData value : addressList) {
+			String city = value.getCity();
+			String state = value.getState();
+			if (city.equalsIgnoreCase(cityNam)) {
+				changeValue.add(value);
+				countCity++;
+			} else if (state.equalsIgnoreCase(stateNam)) {
+				changeValue.add(value);
+				countState++;
+			}
+		}
+		 int totalCount = countCity + countState;
+		return totalCount ;
+	}
+}
 
 public class AddressBook {
 
@@ -261,13 +282,17 @@ public class AddressBook {
 		for (AddressBookData value : addressList) {
 			System.out.println("Data Store In AddressBok::" + value);
 		}
-		
+
+		System.out.println("Get Number Of Person By Using City or State Name::");
+		int count = addTest.getNumberOfPersonByCityOrName(addressList);
+		System.out.println("Get Number Of Person By Using City or State Name::" + count);
+
 		System.out.println("View Data By Using City or State Name::");
 		changeList = addTest.sortDataCityOrStateUsing(addressList);
 		for (AddressBookData value : changeList) {
 			System.out.println("Sort Data Using City and State Name In AddressBok::" + value);
 		}
-		
+
 		System.out.println("Sort  Data By Using City and State Name::");
 		changeList = addTest.sortByCityAndState(addressList);
 		for (AddressBookData value : changeList) {
