@@ -1,7 +1,10 @@
 package com.bridgelab.collection;
 
+import java.awt.List;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 class AddressBookData {
@@ -100,7 +103,7 @@ class AddressBookData {
 }
 
 class AdressBookTest {
-	String fname, lname, address, city, state, pin, mobileNo, mailId;
+	public String fname, lname, address, city, state, pin, mobileNo, mailId;
 	ArrayList<AddressBookData> addressDataTest = new ArrayList<>();
 	String str;
 	Scanner sc = new Scanner(System.in);
@@ -178,23 +181,34 @@ public class AddressBook {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program Using Collection::");
+		Scanner sc = new Scanner(System.in);
 		AddressBookData data = new AddressBookData("Amit", "yadav", "Chembur", "Mumbai", "Maharashtra", "400074",
 				"86555580069", "amit@gmail.com");
-		AddressBookData data1 = new AddressBookData("Vijay", "sing", "kurla", "Mumbai", "Maharashtra", "400024",
-				"86555580089", "vijay@gmail.com");
-		AddressBookData data2 = new AddressBookData("Naresh", "gupta", "Thane", "Mumbai", "Maharashtra", "400004",
-				"86557880089", "naresh@gmail.com");
-
 		ArrayList<AddressBookData> addressList = new ArrayList<>();
 		AdressBookTest addTest = new AdressBookTest(addressList);
 		ArrayList<AddressBookData> deleteList = new ArrayList<>();
 		ArrayList<AddressBookData> changeList = new ArrayList<>();
 
 		addressList.add(data);
-		addressList.add(data1);
-		addressList.add(data2);
 		for (AddressBookData value : addressList) {
 			System.out.println("Data Store In AddressBok::" + value);
+		}
+		
+		
+		System.out.println("Refactor Code::");
+		Map<String, ArrayList<AddressBookData>> addressMap = new HashMap<>();
+		System.out.println("Enter How many Entry you want in AddressBool::");
+		int n = sc.nextInt();
+		for (int i = 0; i < n; i++) {
+			System.out.println("Give Unique Name To AddressBook::");
+			String key = sc.next();
+			AddressBookData refactorData = addTest.dataEnteyInAddressBook();
+			changeList.add(refactorData);
+			addressMap.put(key, changeList);
+		}
+		for (Entry<String, ArrayList<AddressBookData>> entry : addressMap.entrySet()) {
+			System.out.println("Every Address Book Have  Specific Name Refactor Code::" + entry.getKey() + " Key&Value "
+					+ entry.getValue());
 		}
 
 		addressList = addTest.addMultipleDataInAddressBook();
@@ -202,8 +216,7 @@ public class AddressBook {
 		for (AddressBookData value : addressList) {
 			System.out.println("Data Store In AddressBok::" + value);
 		}
-		
-		
+
 		changeList = addTest.chngeByName(addressList);
 		for (AddressBookData value : changeList) {
 			System.out.println("After Change By Name In AddressBok::" + value);
