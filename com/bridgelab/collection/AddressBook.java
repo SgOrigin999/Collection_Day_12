@@ -181,7 +181,7 @@ class AdressBookTest {
 		ArrayList<AddressBookData> noDupList = new ArrayList<>();
 		String fName = "", sName = "";
 		for (int i = 0; i < addressList.size(); i++) {
-			int count=0;
+			int count = 0;
 			for (int j = i + 1; j < addressList.size(); j++) {
 				fName = addressList.get(i).getFirstName();
 				sName = addressList.get(j).getFirstName();
@@ -191,15 +191,32 @@ class AdressBookTest {
 					System.out.println("Dup::" + dupList);
 				}
 			}
-			if (count==0) {
+			if (count == 0) {
 				noDupList.add(addressList.get(i));
 			}
 		}
-	    dupList.clear();
+		dupList.clear();
 		changeValue.addAll(noDupList);
 		return changeValue;
 	}
+
+	public ArrayList<AddressBookData> sortByCityAndState(ArrayList<AddressBookData> addressList) {
+		System.out.println("Enter City Name::");
+		String cityNam = sc.next();
+		System.out.println("Enter State Name::");
+		String stateNam = sc.next();
+		
+		for (AddressBookData value : addressList) {
+			String city= value.getCity();
+			String state=value.getState();
+			if (city.equalsIgnoreCase(cityNam) && state.equalsIgnoreCase(stateNam)) {
+				changeValue.add(value);
+			}
+		}
+		return changeValue;
+	}
 }
+
 
 public class AddressBook {
 
@@ -208,14 +225,14 @@ public class AddressBook {
 		Scanner sc = new Scanner(System.in);
 		AddressBookData data1 = new AddressBookData("Amit", "yadav", "Chembur", "Mumbai", "Maharashtra", "400074",
 				"86555580069", "amit@gmail.com");
-		AddressBookData data2 = new AddressBookData("sanjay", "gupta", "Chembur", "Mumbai", "Maharashtra", "400074",
+		AddressBookData data2 = new AddressBookData("sanjay", "gupta", "Chembur", "Chennai", "Taminadu", "400074",
 				"86555520069", "sanjay@gmail.com");
-		AddressBookData data3 = new AddressBookData("Amit", "patil", "kurla", "Mumbai", "Maharashtra", "400072",
-				"86555586069", "amit@gmail.com");
+		AddressBookData data3 = new AddressBookData("Ajay", "patil", "kurla", "Mumbai", "Maharashtra", "400072",
+				"86555586069", "ajay@gmail.com");
 		AddressBookData data4 = new AddressBookData("Manoj", "kumar", "Mulund", "Mumbai", "Maharashtra", "400076",
 				"86555580969", "manoj@gmail.com");
-		AddressBookData data5 = new AddressBookData("sanjay", "yadav", "Chembur", "Mumbai", "Maharashtra", "400074",
-				"86555580060", "sanjay@gmail.com");
+		AddressBookData data5 = new AddressBookData("sanjiv", "yadav", "Chembur", "Chennai", "Tamilnadu", "400074",
+				"86555580060", "sanjiv@gmail.com");
 		ArrayList<AddressBookData> addressList = new ArrayList<>();
 		AdressBookTest addTest = new AdressBookTest(addressList);
 		ArrayList<AddressBookData> deleteList = new ArrayList<>();
@@ -228,7 +245,13 @@ public class AddressBook {
 		for (AddressBookData value : addressList) {
 			System.out.println("Data Store In AddressBok::" + value);
 		}
-		System.out.println("NO Duplicate Data Of Same Person In AddressBook");
+		System.out.println("Sort  Data By Using City and State Name::");
+		changeList = addTest.sortByCityAndState(addressList);
+		for (AddressBookData value : changeList) {
+			System.out.println("Sort Data Using City and State Name In AddressBok::" + value);
+		}
+
+		System.out.println("NO Duplicate Data Of Same Person In AddressBook::");
 		deleteList = addTest.noDuplicate(addressList);
 		for (AddressBookData value : deleteList) {
 			System.out.println("No Duplicate  Data Of Same Name In AddressBok::" + value);
